@@ -1,6 +1,6 @@
 ---
 title: Tech2
-layout: categories
+layout: tags
 permalink: /tech2/
 show_excerpts: true
 entries_layout: list

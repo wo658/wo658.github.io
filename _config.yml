@@ -78,13 +78,24 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-paginate
-
+# Collections
+collections:
+  recipes:
+    output: true
+    permalink: /:collection/:path/
 # Front Matter Defaults
 defaults:
   # Posts defaults
   - scope:
       path: "_posts"
       type: posts
+    values:
+      layout: post
+      share: true
+  # Recipe defaults
+  - scope:
+      path: "_recipes"
+      type: recipes
     values:
       layout: post
       share: true

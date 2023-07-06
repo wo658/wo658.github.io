@@ -1,7 +1,7 @@
 ---
-title: Project
-layout: categories
-permalink: /project/
-show_excerpts: true
-entries_layout: list
+title: Recipes
+layout: collection
+permalink: /recipes/
+collection: recipes
+entries_layout: grid
 ---
