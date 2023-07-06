@@ -2,12 +2,12 @@
 
 - title: Home
   url: /
-# - title: Posts
-#   url: /posts/
-# - title: Categories
-#   url: /categories/
-# - title: Tags
-#   url: /tags/
+- title: Tech1
+  url: /tech1/
+- title: Tech2
+  url: /tech2/
+- title: Project
+  url: /project/
 # - title: Recipes
 #   url: /recipes/
 # - title: Search
