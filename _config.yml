@@ -24,7 +24,7 @@ url: # the base hostname & protocol for your site e.g. "https://mmistakes.github
 logo: 
 date_format: "%B %-d, %Y"
 read_time: true
-words_per_minute: 200
+words_per_minute: #200
 mathjax:
   enable: # MathJax equations, e.g. true, false (default)
   combo:  # "tex-svg" (default), "tex-mml-chtml", etc.: docs.mathjax.org/en/latest/web/components/combined.html
