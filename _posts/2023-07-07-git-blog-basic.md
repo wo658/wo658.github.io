@@ -4,7 +4,7 @@ categories:
   
 tags:
   - git 
-last_modified_at: 2017-03-09T14:25:52-05:00
+last_modified_at: 2023-07-07T14:25:52-05:00
 ---
 
 깃허브 블로그 제작 방법과 오류 해결
