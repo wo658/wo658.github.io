@@ -3,7 +3,7 @@ title: "깃허브 블로그 기초"
 categories:
   
 tags:
-  - git 
+  - Git 
 last_modified_at: 2023-07-07T14:25:52-05:00
 ---
 
