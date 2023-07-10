@@ -4,7 +4,7 @@ categories:
   - OS
 tags:
    
-last_modified_at: 2023-07-11T00:25:52-05:00
+last_modified_at: 2023-07-11T00:25:52-01:00
 ---
 
 운영체제와 기억장치 관리
