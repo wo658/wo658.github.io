@@ -4,7 +4,7 @@ categories:
    
 tags:
   - Java
-last_modified_at: 2023-07-11T00:25:52-05:00
+last_modified_at: 2023-07-11T00:25:52-01:00
 ---
 
 자바 인터페이스와 추상클래스
