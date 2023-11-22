@@ -31,6 +31,8 @@ v.front() v.back() 첫 , 끝 접근
 
 v.push_back(0) 벡터의 마지막에 0 삽입.
 v.push_front(0) 벡터의 처음에 0 삽입.
+v.insert(v.begin() + 5 )  같은 식으로 원하는 인덱스에 삽입 가능
+
 
 ## 벡터 요소 삭제
 
