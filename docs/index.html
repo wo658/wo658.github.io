@@ -19,7 +19,7 @@
     <div class="container header-inner">
       <a class="brand" href="#home">LangGraph Portfolio</a>
       <nav class="nav" aria-label="Primary">
-        <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+        <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">메뉴</button>
         <ul class="nav-list">
           <li><a href="#home">홈</a></li>
           <li><a href="#projects">프로젝트</a></li>
@@ -28,7 +28,7 @@
           <li><a href="#infra">인프라</a></li>
           <li><a href="#tech-detail">기술상세</a></li>
           <li><a href="#metrics">성능</a></li>
-          <li><button class="theme-toggle" aria-label="테마 전환">🌓</button></li>
+          <li><button class="theme-toggle" aria-label="테마 전환">테마</button></li>
         </ul>
       </nav>
     </div>
@@ -45,6 +45,10 @@
         <div class="hero-ctas">
           <a class="btn primary" href="#projects">프로젝트 보기</a>
         </div>
+      </div>
+      <div class="hero-art">
+        <div class="blob"></div>
+        <div class="avatar">LG</div>
       </div>
     </div>
   </main>
@@ -98,7 +102,7 @@
 
   <section id="architecture" class="section">
     <div class="container">
-      <h2>🏗️ 시스템 아키텍처</h2>
+      <h2>시스템 아키텍처</h2>
       <div class="architecture-diagram">
         <pre>
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -141,10 +145,10 @@
 
   <section id="infra" class="section alt">
     <div class="container">
-      <h2>☁️ 클라우드 인프라 구성</h2>
+      <h2>클라우드 인프라 구성</h2>
       <div class="infra-grid">
         <div class="infra-card">
-          <div class="infra-icon">🎨</div>
+          <div class="infra-icon">Frontend</div>
           <h3>Frontend</h3>
           <div class="infra-tech">Vercel</div>
           <ul class="infra-features">
@@ -157,7 +161,7 @@
         </div>
         
         <div class="infra-card">
-          <div class="infra-icon">⚙️</div>
+          <div class="infra-icon">API</div>
           <h3>Backend API</h3>
           <div class="infra-tech">Railway</div>
           <ul class="infra-features">
@@ -170,7 +174,7 @@
         </div>
         
         <div class="infra-card">
-          <div class="infra-icon">🗄️</div>
+          <div class="infra-icon">DB</div>
           <h3>Database</h3>
           <div class="infra-tech">MongoDB Atlas</div>
           <ul class="infra-features">
@@ -187,7 +191,7 @@
 
   <section id="tech-detail" class="section">
     <div class="container">
-      <h2>🎨 Frontend 기술 스택 및 선택 이유</h2>
+      <h2>Frontend 기술 스택 및 선택 이유</h2>
       <div class="tech-grid">
         <div class="tech-card">
           <h3>Next.js 15 <span class="tech-badge">Core Framework</span></h3>
@@ -260,7 +264,7 @@
 
   <section id="backend-tech" class="section alt">
     <div class="container">
-      <h2>⚙️ Backend 기술 스택 및 선택 이유</h2>
+      <h2>Backend 기술 스택 및 선택 이유</h2>
       <div class="tech-grid">
         <div class="tech-card">
           <h3>NestJS <span class="tech-badge">Backend Framework</span></h3>
@@ -300,7 +304,7 @@
 
   <section id="features" class="section">
     <div class="container">
-      <h2>🚀 핵심 기능 구현</h2>
+      <h2>핵심 기능 구현</h2>
       <div class="flow-diagram">
         <h3>실시간 코드 파싱 및 시각화 플로우</h3>
         <div class="flow-steps">
@@ -317,13 +321,13 @@
       </div>
       
       <div class="highlight-box">
-        <h3>💡 특별한 기술적 구현</h3>
+        <h3>특별한 기술적 구현</h3>
         <ul>
-          <li><strong>🔄 양방향 동기화:</strong> 코드 변경 시 그래프 자동 업데이트, 그래프 편집 시 코드 자동 생성</li>
-          <li><strong>🎯 스마트 엣지 라우팅:</strong> 노드 충돌 회피 알고리즘으로 깔끔한 레이아웃 유지</li>
-          <li><strong>🔍 루프 감지:</strong> 순환 참조 자동 감지 및 시각적 표시 (빨간 점선)</li>
-          <li><strong>📱 반응형 디자인:</strong> 모바일부터 데스크톱까지 완벽한 반응형 UI</li>
-          <li><strong>🌐 다국어 지원:</strong> i18n 스토어로 한국어/영어 전환 지원</li>
+          <li><strong>양방향 동기화:</strong> 코드 변경 시 그래프 자동 업데이트, 그래프 편집 시 코드 자동 생성</li>
+          <li><strong>스마트 엣지 라우팅:</strong> 노드 충돌 회피 알고리즘으로 깔끔한 레이아웃 유지</li>
+          <li><strong>루프 감지:</strong> 순환 참조 자동 감지 및 시각적 표시 (빨간 점선)</li>
+          <li><strong>반응형 디자인:</strong> 모바일부터 데스크톱까지 완벽한 반응형 UI</li>
+          <li><strong>다국어 지원:</strong> i18n 스토어로 한국어/영어 전환 지원</li>
         </ul>
       </div>
     </div>
@@ -331,7 +335,7 @@
 
   <section id="metrics" class="section alt">
     <div class="container">
-      <h2>📊 성능 지표</h2>
+      <h2>성능 지표</h2>
       <div class="metrics-grid">
         <div class="metric">
           <span class="metric-value">100+</span>
@@ -363,7 +367,7 @@
 
   <section id="challenges" class="section">
     <div class="container">
-      <h2>🎯 기술적 도전과 해결</h2>
+      <h2>기술적 도전과 해결</h2>
       <div class="challenges-grid">
         <div class="challenge-card">
           <h3>도전 1: Python 코드 파싱의 정확성</h3>
@@ -388,9 +392,9 @@
 
   <section id="achievements" class="section alt">
     <div class="container">
-      <h2>💫 프로젝트 영향 및 성과</h2>
+      <h2>프로젝트 영향 및 성과</h2>
       <div class="achievement-box">
-        <h3>✅ 달성한 목표</h3>
+        <h3>달성한 목표</h3>
         <ul>
           <li>LangGraph 워크플로우 개발 시간 50% 단축</li>
           <li>시각적 디버깅으로 오류 발견 시간 70% 감소</li>
