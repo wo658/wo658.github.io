@@ -403,7 +403,8 @@ body.spa-mode {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+  align-items: center;
+  height: auto;
 }
 
 /* Page-specific layouts */
@@ -415,10 +416,14 @@ body.spa-mode {
 }
 
 .page.projects .container,
-.page.skills .container,
+.page.skills .container {
+  justify-content: center;
+  text-align: center;
+}
+
 .page.architecture .container {
-  justify-content: flex-start;
-  padding-top: 60px;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Navigation - 깔끔한 미니멀 디자인 */
