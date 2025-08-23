@@ -3,43 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear().toString();
 
-  // Mobile nav
-  const navToggle = document.querySelector('.nav-toggle');
-  const navList = document.querySelector('.nav-list');
-  if (navToggle && navList) {
-    navToggle.addEventListener('click', () => {
-      const opened = navList.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', String(opened));
-    });
-    navList.addEventListener('click', (e) => {
-      const t = e.target;
-      if (t && t.tagName === 'A') {
-        navList.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
 
-  // Theme toggle (dark/light)
-  const root = document.documentElement;
-  const THEME_KEY = 'portfolio:theme';
-  const applyTheme = (mode) => {
-    if (mode === 'light') root.setAttribute('data-theme', 'light');
-    else root.removeAttribute('data-theme');
-  };
-  try {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved === 'light' || saved === 'dark') applyTheme(saved);
-  } catch {}
-  const themeToggle = document.querySelector('.theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const isLight = root.getAttribute('data-theme') === 'light';
-      const next = isLight ? 'dark' : 'light';
-      applyTheme(next);
-      try { localStorage.setItem(THEME_KEY, next); } catch {}
-    });
-  }
 
   // SPA Page System - 완전한 풀스크린 페이지 전환
   let currentPage = 0;
@@ -217,21 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // 네비게이션 링크 처리
-    const navLinks = document.querySelectorAll('.nav-list a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = link.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const targetId = href.slice(1);
-          const pageIndex = pages.findIndex(page => page.id === targetId);
-          if (pageIndex !== -1) {
-            goToPage(pageIndex);
-          }
-        }
-      });
-    });
   };
   
   let touchStartX = 0;
