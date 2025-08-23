@@ -212,6 +212,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   
+  // 마우스 휠 스크롤로 페이지 이동
+  let isScrolling = false;
+  const handleWheel = (e) => {
+    if (isScrolling) return;
+    
+    const delta = e.deltaY;
+    
+    if (Math.abs(delta) > 30) {
+      isScrolling = true;
+      
+      if (delta > 0) {
+        // 아래로 스크롤 = 다음 페이지
+        goToNextPage();
+      } else {
+        // 위로 스크롤 = 이전 페이지
+        goToPrevPage();
+      }
+      
+      // 스크롤 디바운싱
+      setTimeout(() => {
+        isScrolling = false;
+      }, 800);
+    }
+  };
+  
+  // 휠 이벤트 리스너 추가
+  document.addEventListener('wheel', handleWheel, { passive: true });
+  
   // SPA 시스템 초기화
   setTimeout(initSPASystem, 100);
   

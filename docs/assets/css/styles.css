@@ -618,6 +618,14 @@ body.spa-mode {
 }
 
 /* Architecture styling */
+.architecture-title {
+  font-size: 36px;
+  margin: 0 0 40px;
+  text-align: center;
+  color: var(--primary);
+  font-weight: 600;
+}
+
 .architecture-content {
   display: flex;
   flex-direction: column;
@@ -741,6 +749,57 @@ body.spa-mode {
   left: 0;
   color: var(--primary);
   font-weight: bold;
+}
+
+/* Mermaid Diagrams */
+.mermaid-container {
+  background: linear-gradient(135deg, rgba(14,165,233,0.05) 0%, rgba(14,165,233,0.02) 100%);
+  border: 1px solid rgba(14,165,233,0.15);
+  border-radius: 24px;
+  padding: 40px;
+  margin: 20px auto;
+  max-width: 1200px;
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mermaid {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+/* Mermaid 요소 스타일 오버라이드 */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse {
+  fill: #111827 !important;
+  stroke: #0ea5e9 !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .node.default {
+  fill: #111827 !important;
+}
+
+.mermaid .edgeLabel {
+  background-color: #0b1327 !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+}
+
+.mermaid .flowchart-link {
+  stroke: #1f2937 !important;
+  stroke-width: 2px !important;
 }
 
 /* Responsive for SPA Pages */

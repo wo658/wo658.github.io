@@ -19,10 +19,9 @@
   <main id="home" class="hero">
     <div class="container hero-inner">
       <div class="hero-text">
-        <h1>LangGraph MonoRepo 포트폴리오</h1>
+        <h1>LangGraph 포트폴리오</h1>
         <p>
-          LangGraph 기반 워크플로우 시각화 앱과 NestJS 기반 AI 백엔드를 포함한 풀스택 프로젝트.
-          성능, DX, 확장성을 고려해 설계했습니다.
+          LangGraph 코드 워크플로우 시각화 풀스택 프로젝트.
         </p>
         <div class="hero-ctas">
           <a class="btn primary" href="https://www.langvis.com" target="_blank" rel="noopener noreferrer">프로젝트 보기</a>
@@ -30,40 +29,7 @@
       </div>
     </div>
   </main>
-
-  <section id="projects" class="section">
-    <div class="container">
-      <h2>프로젝트</h2>
-      <div class="grid projects">
-        <article class="card">
-          <h3>LangGraphVisual2 (Next.js)</h3>
-          <p>
-            LangGraph 파이프라인을 시각화/편집하는 웹 앱. 현대적 UI/UX, 반응형 레이아웃, 타입 안정성(Typescript)과
-            모듈형 구조로 유지보수성을 확보했습니다.
-          </p>
-          <ul class="tags">
-            <li>Next.js</li><li>TypeScript</li><li>Tailwind/CSS</li><li>App Router</li>
-          </ul>
-          <div class="card-actions">
-            <a class="btn small" href="https://github.com/wo658/docs/tree/page/LangGraphVisual2" target="_blank" rel="noreferrer">코드 보기</a>
-          </div>
-        </article>
-        <article class="card">
-          <h3>nest-api (NestJS)</h3>
-          <p>
-            AI/인증/템플릿 모듈을 갖춘 서버. 계층형 구조, 가드/인터셉터, 테스트 구성으로 안정성과 확장성을 고려했습니다.
-          </p>
-          <ul class="tags">
-            <li>NestJS</li><li>TypeScript</li><li>Jest</li><li>OpenAPI</li>
-          </ul>
-          <div class="card-actions">
-            <a class="btn small" href="https://github.com/wo658/docs/tree/page/nest-api" target="_blank" rel="noreferrer">코드 보기</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
+  
   <section id="skills" class="section alt">
     <div class="container">
       <h2>기술 스택</h2>
@@ -80,9 +46,114 @@
 
   <section id="architecture" class="section">
     <div class="container">
+      <h2 class="architecture-title">컨테이너 다이어그램</h2>
       <div class="architecture-content">
         <div class="architecture-image-container">
           <img src="assets/img/langgraph-architecture.svg" alt="LangGraph Architecture Diagram" class="architecture-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flowchart" class="section alt">
+    <div class="container">
+      <h2>애플리케이션 플로우차트</h2>
+      <div class="mermaid-container">
+        <div class="mermaid">
+          flowchart TB
+            Start([사용자 접속]) --> Auth{인증 상태}
+            Auth -->|미인증| OAuth[OAuth 로그인]
+            Auth -->|인증됨| Main[메인 대시보드]
+            
+            OAuth --> Provider{Provider 선택}
+            Provider -->|GitHub| GH[GitHub OAuth]
+            Provider -->|Google| GL[Google OAuth]
+            GH --> CreateUser[사용자 생성/업데이트]
+            GL --> CreateUser
+            CreateUser --> Token[토큰 발급]
+            Token --> Main
+            
+            Main --> Actions{사용자 액션}
+            Actions -->|코드 작성| Editor[Monaco Editor]
+            Actions -->|시각화| Visual[ReactFlow 렌더링]
+            Actions -->|템플릿| Template[템플릿 관리]
+            Actions -->|AI 사용| AI[AI 서비스]
+            
+            Editor --> Parse[Python AST 파싱]
+            Parse --> Graph[그래프 데이터 변환]
+            Graph --> Visual
+            
+            Template --> TempOp{템플릿 작업}
+            TempOp -->|생성| CreateTemp[템플릿 저장]
+            TempOp -->|조회| GetTemp[템플릿 목록]
+            TempOp -->|수정| UpdateTemp[템플릿 업데이트]
+            TempOp -->|삭제| DeleteTemp[템플릿 삭제]
+            
+            AI --> CheckQuota{토큰 확인}
+            CheckQuota -->|충분| Process[AI 처리]
+            CheckQuota -->|부족| Reject[요청 거부]
+            Process --> UpdateQuota[토큰 차감]
+            UpdateQuota --> Response[응답 반환]
+            
+            style Start fill:#e1f5e1
+            style Main fill:#fff4e1
+            style Visual fill:#e1f4ff
+            style AI fill:#ffe1e1
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="erd" class="section">
+    <div class="container">
+      <h2>데이터베이스 ERD</h2>
+      <div class="mermaid-container">
+        <div class="mermaid">
+          erDiagram
+            USER {
+                ObjectId _id PK
+                string provider "github or google"
+                string providerId UK
+                string email
+                string name
+                string avatarUrl
+                number aiTokensRemaining12h "default 15000"
+                date createdAt
+                date updatedAt
+            }
+            
+            TEMPLATE {
+                ObjectId _id PK
+                string title
+                string description
+                text code
+                string language "python, typescript, javascript"
+                ObjectId author FK
+                ObjectId[] likedBy
+                string visibility "public or private"
+                date createdAt
+                date updatedAt
+            }
+            
+            AI_USAGE {
+                ObjectId userId FK
+                number tokensUsed
+                string model
+                string requestType
+                date timestamp
+            }
+            
+            SESSION {
+                ObjectId userId FK
+                string accessToken
+                string refreshToken
+                date expiresAt
+            }
+            
+            USER ||--o{ TEMPLATE : creates
+            USER ||--o{ AI_USAGE : consumes
+            USER ||--o{ SESSION : has
+            USER }o--o{ TEMPLATE : likes
         </div>
       </div>
     </div>
@@ -351,6 +422,56 @@
   </section>
 
 
+  <!-- Mermaid.js 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    // Mermaid 초기화
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#0ea5e9',
+        primaryTextColor: '#e5e7eb',
+        primaryBorderColor: '#1f2937',
+        lineColor: '#1f2937',
+        secondaryColor: '#111827',
+        tertiaryColor: '#0b1220',
+        background: '#0b1327',
+        mainBkg: '#111827',
+        secondBkg: '#0f172a',
+        tertiaryBkg: '#0b1220',
+        primaryBorderColor: '#1f2937',
+        secondaryBorderColor: '#1f2937',
+        tertiaryBorderColor: '#1f2937',
+        primaryTextColor: '#e5e7eb',
+        secondaryTextColor: '#94a3b8',
+        tertiaryTextColor: '#e5e7eb',
+        lineColor: '#1f2937',
+        textColor: '#e5e7eb',
+        mainContrastColor: '#e5e7eb',
+        fontSize: '16px',
+        darkMode: true,
+        edgeLabelBackground: '#0b1327',
+        clusterBkg: '#111827',
+        clusterBorder: '#1f2937',
+        defaultLinkColor: '#0ea5e9',
+        titleColor: '#e5e7eb',
+        labelBoxBkgColor: '#111827',
+        labelBoxBorderColor: '#1f2937',
+        labelTextColor: '#e5e7eb',
+        actorBorder: '#0ea5e9',
+        actorBkg: '#111827',
+        actorTextColor: '#e5e7eb',
+        actorLineColor: '#1f2937',
+        signalColor: '#e5e7eb',
+        signalTextColor: '#e5e7eb',
+        labelBoxColor: '#111827',
+        activationBorderColor: '#0ea5e9',
+        activationBkgColor: '#111827',
+        sequenceNumberColor: '#e5e7eb'
+      }
+    });
+  </script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
