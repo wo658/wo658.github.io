@@ -11,7 +11,6 @@
       const opened = navList.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', String(opened));
     });
-    // Close when clicking a link (mobile)
     navList.addEventListener('click', (e) => {
       const t = e.target;
       if (t && t.tagName === 'A') {
@@ -42,168 +41,175 @@
     });
   }
 
-  // Slide System
-  let currentSlide = 0;
-  const slides = [];
-  let slideContainer, slideWrapper;
+  // SPA Page System - 완전한 풀스크린 페이지 전환
+  let currentPage = 0;
+  const pages = [];
+  let pageContainer, pageWrapper;
   
-  const initSlideSystem = () => {
-    // Create slide system
+  const initSPASystem = () => {
+    // 페이지 요소들 수집
     const main = document.querySelector('main');
     const sections = document.querySelectorAll('section');
     
     if (!main || !sections.length) return;
     
-    // Add slide class to hero and sections
-    main.classList.add('slide');
-    slides.push(main);
+    // 각 페이지에 클래스 추가
+    main.classList.add('page', 'hero');
+    pages.push(main);
     
-    sections.forEach(section => {
-      section.classList.add('slide');
-      slides.push(section);
+    sections.forEach((section, index) => {
+      section.classList.add('page');
+      // 각 섹션에 특별한 클래스 추가
+      if (section.id === 'projects') section.classList.add('projects');
+      else if (section.id === 'skills') section.classList.add('skills');
+      else if (section.id === 'architecture') section.classList.add('architecture');
+      pages.push(section);
     });
     
-    // Create slide container and wrapper
-    slideContainer = document.createElement('div');
-    slideContainer.className = 'slide-container';
-    slideWrapper = document.createElement('div');
-    slideWrapper.className = 'slide-wrapper';
+    // 컨테이너 생성
+    pageContainer = document.createElement('div');
+    pageContainer.className = 'page-container';
+    pageWrapper = document.createElement('div');
+    pageWrapper.className = 'page-wrapper';
     
-    // Move all slides into wrapper
-    slides.forEach(slide => {
-      slideWrapper.appendChild(slide);
+    // 모든 페이지를 래퍼에 이동
+    pages.forEach(page => {
+      pageWrapper.appendChild(page);
     });
     
-    slideContainer.appendChild(slideWrapper);
-    document.body.appendChild(slideContainer);
+    pageContainer.appendChild(pageWrapper);
+    document.body.appendChild(pageContainer);
     
-    // Enable slide mode
-    document.body.classList.add('slide-mode');
+    // SPA 모드 활성화
+    document.body.classList.add('spa-mode');
     
-    createSlideNavigation();
+    // 네비게이션 생성
+    createPageNavigation();
     createArrowNavigation();
-    updateSlidePosition();
+    updatePagePosition();
     
-    // Handle keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        goToPrevSlide();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        goToNextSlide();
-      }
-    });
+    // 키보드 네비게이션
+    document.addEventListener('keydown', handleKeyNavigation);
     
-    // Handle hash navigation
-    updateHashNavigation();
+    // 해시 네비게이션 설정
+    setupHashNavigation();
+    
+    // 스와이프 네비게이션 (터치)
+    setupSwipeNavigation();
   };
   
-  const createSlideNavigation = () => {
+  const createPageNavigation = () => {
     const nav = document.createElement('div');
-    nav.className = 'slide-nav';
+    nav.className = 'page-nav';
     
-    // Previous button
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'nav-prev';
-    prevBtn.textContent = '<';
-    prevBtn.onclick = goToPrevSlide;
-    nav.appendChild(prevBtn);
-    
-    // Slide indicators
-    slides.forEach((_, index) => {
-      const btn = document.createElement('button');
-      btn.textContent = (index + 1).toString();
-      btn.onclick = () => goToSlide(index);
-      if (index === 0) btn.classList.add('active');
-      nav.appendChild(btn);
+    // 각 페이지마다 도트 생성
+    pages.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot';
+      if (index === 0) dot.classList.add('active');
+      dot.onclick = () => goToPage(index);
+      nav.appendChild(dot);
     });
-    
-    // Next button
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'nav-next';
-    nextBtn.textContent = '>';
-    nextBtn.onclick = goToNextSlide;
-    nav.appendChild(nextBtn);
     
     document.body.appendChild(nav);
   };
   
   const createArrowNavigation = () => {
-    // Left arrow
+    // 왼쪽 화살표
     const leftArrow = document.createElement('button');
-    leftArrow.className = 'slide-arrow prev';
-    leftArrow.textContent = '<';
-    leftArrow.onclick = goToPrevSlide;
+    leftArrow.className = 'page-arrow prev';
+    leftArrow.innerHTML = '‹';
+    leftArrow.onclick = goToPrevPage;
     document.body.appendChild(leftArrow);
     
-    // Right arrow
+    // 오른쪽 화살표
     const rightArrow = document.createElement('button');
-    rightArrow.className = 'slide-arrow next';
-    rightArrow.textContent = '>';
-    rightArrow.onclick = goToNextSlide;
+    rightArrow.className = 'page-arrow next';
+    rightArrow.innerHTML = '›';
+    rightArrow.onclick = goToNextPage;
     document.body.appendChild(rightArrow);
   };
   
-  const goToSlide = (index) => {
-    if (index < 0 || index >= slides.length) return;
-    currentSlide = index;
-    updateSlidePosition();
+  const goToPage = (index) => {
+    if (index < 0 || index >= pages.length) return;
+    if (index === currentPage) return;
+    
+    currentPage = index;
+    updatePagePosition();
     updateNavigation();
     updateHash();
   };
   
-  const goToPrevSlide = () => {
-    goToSlide(currentSlide - 1);
+  const goToPrevPage = () => {
+    if (currentPage > 0) {
+      goToPage(currentPage - 1);
+    }
   };
   
-  const goToNextSlide = () => {
-    goToSlide(currentSlide + 1);
+  const goToNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      goToPage(currentPage + 1);
+    }
   };
   
-  const updateSlidePosition = () => {
-    if (slideWrapper) {
-      slideWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+  const updatePagePosition = () => {
+    if (pageWrapper) {
+      pageWrapper.style.transform = `translateX(-${currentPage * 100}%)`;
     }
   };
   
   const updateNavigation = () => {
-    const navButtons = document.querySelectorAll('.slide-nav button:not(.nav-prev):not(.nav-next)');
-    const prevBtn = document.querySelector('.slide-nav .nav-prev');
-    const nextBtn = document.querySelector('.slide-nav .nav-next');
-    const leftArrow = document.querySelector('.slide-arrow.prev');
-    const rightArrow = document.querySelector('.slide-arrow.next');
-    
-    // Update indicators
-    navButtons.forEach((btn, index) => {
-      btn.classList.toggle('active', index === currentSlide);
+    // 도트 네비게이션 업데이트
+    const dots = document.querySelectorAll('.page-nav .nav-dot');
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentPage);
     });
     
-    // Update arrow states
-    if (prevBtn) prevBtn.disabled = currentSlide === 0;
-    if (nextBtn) nextBtn.disabled = currentSlide === slides.length - 1;
-    if (leftArrow) leftArrow.disabled = currentSlide === 0;
-    if (rightArrow) rightArrow.disabled = currentSlide === slides.length - 1;
+    // 화살표 상태 업데이트
+    const prevArrow = document.querySelector('.page-arrow.prev');
+    const nextArrow = document.querySelector('.page-arrow.next');
+    
+    if (prevArrow) {
+      prevArrow.disabled = currentPage === 0;
+      prevArrow.style.opacity = currentPage === 0 ? '0.2' : '0.7';
+    }
+    if (nextArrow) {
+      nextArrow.disabled = currentPage === pages.length - 1;
+      nextArrow.style.opacity = currentPage === pages.length - 1 ? '0.2' : '0.7';
+    }
   };
   
   const updateHash = () => {
-    const slideId = slides[currentSlide].id;
-    if (slideId) {
-      history.replaceState(null, null, `#${slideId}`);
+    const pageId = pages[currentPage].id;
+    if (pageId) {
+      history.replaceState(null, null, `#${pageId}`);
     }
   };
   
-  const updateHashNavigation = () => {
-    // Handle initial hash
+  const handleKeyNavigation = (e) => {
+    switch(e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        goToPrevPage();
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        goToNextPage();
+        break;
+    }
+  };
+  
+  const setupHashNavigation = () => {
+    // 초기 해시 처리
     const hash = window.location.hash.slice(1);
     if (hash) {
-      const slideIndex = slides.findIndex(slide => slide.id === hash);
-      if (slideIndex !== -1) {
-        goToSlide(slideIndex);
+      const pageIndex = pages.findIndex(page => page.id === hash);
+      if (pageIndex !== -1) {
+        goToPage(pageIndex);
       }
     }
     
-    // Update navigation links
+    // 네비게이션 링크 처리
     const navLinks = document.querySelectorAll('.nav-list a');
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
@@ -211,36 +217,44 @@
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           const targetId = href.slice(1);
-          const slideIndex = slides.findIndex(slide => slide.id === targetId);
-          if (slideIndex !== -1) {
-            goToSlide(slideIndex);
+          const pageIndex = pages.findIndex(page => page.id === targetId);
+          if (pageIndex !== -1) {
+            goToPage(pageIndex);
           }
         }
       });
     });
   };
   
-  // Initialize slide system
-  initSlideSystem();
+  let touchStartX = 0;
+  let touchEndX = 0;
   
-  // Copy page link
-  const copyLink = document.getElementById('copy-link');
-  if (copyLink) {
-    copyLink.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const url = window.location.href;
-      try {
-        await navigator.clipboard.writeText(url);
-        copyLink.textContent = '복사됨!';
-        setTimeout(() => (copyLink.textContent = '페이지 링크 복사'), 1200);
-      } catch {
-        const ta = document.createElement('textarea');
-        ta.value = url; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); } catch {}
-        document.body.removeChild(ta);
-        copyLink.textContent = '복사됨!';
-        setTimeout(() => (copyLink.textContent = '페이지 링크 복사'), 1200);
-      }
+  const setupSwipeNavigation = () => {
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
     });
-  }
+    
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+  };
+  
+  const handleSwipe = () => {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // 왼쪽으로 스와이프 = 다음 페이지
+        goToNextPage();
+      } else {
+        // 오른쪽으로 스와이프 = 이전 페이지
+        goToPrevPage();
+      }
+    }
+  };
+  
+  // SPA 시스템 초기화
+  initSPASystem();
 })();

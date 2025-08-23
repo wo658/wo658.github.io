@@ -402,131 +402,263 @@ body {
   color: #10b981;
 }
 
-/* Slide System */
-.slide-container {
-  position: relative;
+/* SPA Page System - 완전한 풀스크린 페이지 전환 */
+body.spa-mode {
   overflow: hidden;
-  width: 100%;
   height: 100vh;
 }
 
-.slide-wrapper {
+.page-container {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page-wrapper {
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.slide {
-  min-width: 100%;
-  min-height: 100vh;
+.page {
+  flex: none;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  padding: 0;
   box-sizing: border-box;
+  overflow-y: auto;
+  scroll-snap-align: start;
 }
 
-.slide:not(.hero) {
+.page .container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Page-specific layouts */
+.page.hero .container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.page.projects .container,
+.page.skills .container,
+.page.architecture .container {
+  justify-content: flex-start;
   padding-top: 120px;
 }
 
-/* Slide Navigation */
-.slide-nav {
+/* Navigation - 깔끔한 미니멀 디자인 */
+.page-nav {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 1000;
   display: flex;
-  gap: 12px;
-  background: rgba(15,23,42,0.8);
-  backdrop-filter: blur(8px);
-  padding: 12px 16px;
-  border-radius: 24px;
-  border: 1px solid var(--border);
+  gap: 8px;
+  background: rgba(11, 18, 32, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-.slide-nav button {
-  background: transparent;
-  border: 2px solid var(--border);
-  color: var(--muted);
-  padding: 8px 12px;
-  border-radius: 8px;
+.page-nav .nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.4);
   cursor: pointer;
-  font-size: 14px;
   transition: all 0.3s ease;
-  min-width: 36px;
 }
 
-.slide-nav button:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+.page-nav .nav-dot:hover {
+  background: rgba(14, 165, 233, 0.7);
 }
 
-.slide-nav button.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #031018;
-}
-
-.slide-nav .nav-prev,
-.slide-nav .nav-next {
-  font-size: 16px;
-  font-weight: bold;
+.page-nav .nav-dot.active {
+  background: #0ea5e9;
+  transform: scale(1.2);
 }
 
 /* Arrow Navigation */
-.slide-arrow {
+.page-arrow {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 99;
-  background: rgba(15,23,42,0.8);
+  z-index: 999;
+  background: rgba(11, 18, 32, 0.9);
   backdrop-filter: blur(8px);
-  border: 2px solid var(--border);
-  color: var(--muted);
-  padding: 12px 16px;
-  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: var(--text);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   cursor: pointer;
   font-size: 18px;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
 }
 
-.slide-arrow:hover {
+.page-arrow:hover {
+  opacity: 1;
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(15,23,42,0.9);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.slide-arrow.prev {
-  left: 20px;
+.page-arrow.prev {
+  left: 30px;
 }
 
-.slide-arrow.next {
-  right: 20px;
+.page-arrow.next {
+  right: 30px;
 }
 
-.slide-arrow:disabled {
-  opacity: 0.3;
+.page-arrow:disabled {
+  opacity: 0.2;
   cursor: not-allowed;
 }
 
-/* Hide default sections when slides are active */
-body.slide-mode .section:not(.slide),
-body.slide-mode .hero:not(.slide) {
+.page-arrow:disabled:hover {
+  transform: translateY(-50%);
+  border-color: rgba(148, 163, 184, 0.3);
+  color: var(--text);
+}
+
+/* Hide scrollbars */
+.page::-webkit-scrollbar {
   display: none;
 }
 
-/* Header adjustments for slide mode */
-body.slide-mode .site-header {
-  position: fixed;
-  width: 100%;
-  z-index: 101;
+.page {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Responsive */
+/* Header fixed for all pages */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+}
+
+/* Page transitions with smooth animations */
+.page-wrapper.transitioning {
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Architecture styling */
+.architecture-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.architecture-image {
+  max-width: 800px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.architecture-image:hover {
+  transform: scale(1.02);
+}
+
+.architecture-description {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.architecture-description h3 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.arch-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.arch-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+.arch-item h4 {
+  color: var(--primary);
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+}
+
+.arch-item p {
+  color: var(--muted);
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+}
+
+.arch-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.arch-item li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.arch-item li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Responsive for SPA Pages */
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-art { order: -1; height: 140px; }
