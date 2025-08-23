@@ -1,4 +1,4 @@
-(function () {
+document.addEventListener('DOMContentLoaded', function() {
   // Year
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear().toString();
@@ -47,11 +47,19 @@
   let pageContainer, pageWrapper;
   
   const initSPASystem = () => {
+    console.log('Initializing SPA system...');
+    
     // 페이지 요소들 수집
     const main = document.querySelector('main');
     const sections = document.querySelectorAll('section');
     
-    if (!main || !sections.length) return;
+    console.log('Found main:', main);
+    console.log('Found sections:', sections.length);
+    
+    if (!main || !sections.length) {
+      console.error('Main element or sections not found');
+      return;
+    }
     
     // 각 페이지에 클래스 추가
     main.classList.add('page', 'hero');
@@ -256,5 +264,13 @@
   };
   
   // SPA 시스템 초기화
-  initSPASystem();
-})();
+  setTimeout(initSPASystem, 100);
+  
+  // Fallback - 만약 위가 실행되지 않으면
+  setTimeout(() => {
+    if (!document.body.classList.contains('spa-mode')) {
+      console.log('Fallback initialization...');
+      initSPASystem();
+    }
+  }, 1000);
+});

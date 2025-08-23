@@ -403,9 +403,14 @@ body {
 }
 
 /* SPA Page System - 완전한 풀스크린 페이지 전환 */
+html {
+  scroll-behavior: smooth;
+}
+
 body.spa-mode {
-  overflow: hidden;
+  overflow: hidden !important;
   height: 100vh;
+  position: relative;
 }
 
 .page-container {
@@ -576,18 +581,51 @@ body.spa-mode {
   align-items: center;
 }
 
+/* SVG 컨테이너 배경 */
+.architecture-image-container {
+  background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(14,165,233,0.03) 100%);
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(14,165,233,0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.architecture-image-container:hover {
+  background: linear-gradient(135deg, rgba(14,165,233,0.12) 0%, rgba(14,165,233,0.05) 100%);
+  border-color: rgba(14,165,233,0.4);
+  box-shadow: 0 16px 64px rgba(14,165,233,0.1);
+}
+
+.architecture-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14,165,233,0.5), transparent);
+}
+
 .architecture-image {
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
   height: auto;
   border-radius: 16px;
-  border: 1px solid var(--border);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
+  border: none; /* SVG는 경계선 불필요 */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* SVG 최적화 설정 */
+  background: transparent;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.2));
+  /* SVG 선명도 개선 */
+  shape-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
 }
 
 .architecture-image:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
+  filter: drop-shadow(0 12px 48px rgba(14, 165, 233, 0.3));
 }
 
 .architecture-description {
