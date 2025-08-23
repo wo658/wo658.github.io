@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>포트폴리오 | LangGraphMonoRepo</title>
+  <meta name="description" content="LangGraph 기반 시각화(Next.js)와 NestJS API를 포함한 모노레포 포트폴리오" />
+  <meta property="og:title" content="포트폴리오 | LangGraphMonoRepo" />
+  <meta property="og:description" content="LangGraph 시각화 앱과 Nest API 프로젝트 포트폴리오" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">LangGraph Portfolio</a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+        <ul class="nav-list">
+          <li><a href="#home">홈</a></li>
+          <li><a href="#projects">프로젝트</a></li>
+          <li><a href="#skills">스택</a></li>
+          <li><a href="#about">소개</a></li>
+          <li><a href="#contact">연락처</a></li>
+          <li><button class="theme-toggle" aria-label="테마 전환">🌓</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>LangGraph MonoRepo 포트폴리오</h1>
+        <p>
+          LangGraph 기반 워크플로우 시각화 앱과 NestJS 기반 AI 백엔드를 포함한 풀스택 프로젝트.
+          성능, DX, 확장성을 고려해 설계했습니다.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn primary" href="#projects">프로젝트 보기</a>
+          <a class="btn" href="#contact">협업 문의</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="blob"></div>
+        <div class="avatar">LG</div>
+      </div>
+    </div>
+  </main>
+
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>프로젝트</h2>
+      <div class="grid projects">
+        <article class="card">
+          <h3>LangGraphVisual2 (Next.js)</h3>
+          <p>
+            LangGraph 파이프라인을 시각화/편집하는 웹 앱. 현대적 UI/UX, 반응형 레이아웃, 타입 안정성(Typescript)과
+            모듈형 구조로 유지보수성을 확보했습니다.
+          </p>
+          <ul class="tags">
+            <li>Next.js</li><li>TypeScript</li><li>Tailwind/CSS</li><li>App Router</li>
+          </ul>
+          <div class="card-actions">
+            <a class="btn small" href="https://github.com/USERNAME/REPO/tree/page/LangGraphVisual2" target="_blank" rel="noreferrer">코드 보기</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>nest-api (NestJS)</h3>
+          <p>
+            AI/인증/템플릿 모듈을 갖춘 서버. 계층형 구조, 가드/인터셉터, 테스트 구성으로 안정성과 확장성을 고려했습니다.
+          </p>
+          <ul class="tags">
+            <li>NestJS</li><li>TypeScript</li><li>Jest</li><li>OpenAPI</li>
+          </ul>
+          <div class="card-actions">
+            <a class="btn small" href="https://github.com/USERNAME/REPO/tree/page/nest-api" target="_blank" rel="noreferrer">코드 보기</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section alt">
+    <div class="container">
+      <h2>기술 스택</h2>
+      <ul class="skill-list">
+        <li>TypeScript / JavaScript</li>
+        <li>Next.js / React</li>
+        <li>NestJS / Node.js</li>
+        <li>LangChain / LangGraph</li>
+        <li>CI/CD · GitHub Actions</li>
+        <li>Testing · Jest</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>소개</h2>
+      <p>
+        대화형 AI 시스템과 워크플로우 오케스트레이션에 관심이 많습니다. 사용자 경험과 개발자 경험을 함께 개선하는
+        제품을 만들기 위해 설계와 자동화를 중요하게 생각합니다.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="section alt">
+    <div class="container">
+      <h2>연락처</h2>
+      <ul class="links">
+        <li><a href="https://github.com/USERNAME" target="_blank" rel="noreferrer">GitHub</a></li>
+        <li><a href="mailto:you@example.com">you@example.com</a></li>
+        <li><a href="#" id="copy-link">페이지 링크 복사</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> Your Name. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
